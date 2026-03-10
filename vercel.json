@@ -1,0 +1,3 @@
+{
+  "rewrites": [{ "source": "/", "destination": "/concept-v0.html" }]
+}

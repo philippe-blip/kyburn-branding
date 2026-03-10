@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kyburn — Concept v0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0 }
+
+:root {
+  --cyan:     #00e5ff;
+  --cyan-dim: rgba(0,229,255,0.15);
+  --dark:     #080810;
+  --dark2:    #0d0d1a;
+  --text:     #dde2f0;
+  --dim:      #5a6080;
+  --border:   rgba(0,229,255,0.1);
+}
+
+html { scroll-behavior: smooth }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--dark);
+  color: var(--text);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ── SCANLINE + GRID ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 0;
+  background-image:
+    linear-gradient(rgba(0,229,255,0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,255,0.028) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 1;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 3px,
+    rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px
+  );
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem; height: 56px;
+  background: rgba(8,8,16,0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Orbitron', monospace;
+  font-weight: 900; font-size: 1.1rem;
+  color: var(--cyan); letter-spacing: 0.2em;
+  text-decoration: none;
+}
+.nav-links {
+  display: flex; gap: 2.5rem;
+  list-style: none;
+}
+.nav-links a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem; letter-spacing: 0.1em;
+  color: var(--dim); text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--cyan) }
+.nav-cta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem; letter-spacing: 0.12em;
+  color: var(--cyan); text-transform: uppercase;
+  border: 1px solid var(--border);
+  padding: 0.5rem 1.2rem;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+.nav-cta:hover { background: var(--cyan-dim); border-color: var(--cyan) }
+
+/* ── HERO ── */
+.hero {
+  position: relative; z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+  padding-top: 56px;
+}
+
+/* ── LEFT PANEL ── */
+.hero-left {
+  display: flex; flex-direction: column;
+  justify-content: center;
+  padding: 6rem 5rem 6rem 6rem;
+  position: relative;
+}
+
+.eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; letter-spacing: 0.25em;
+  color: var(--cyan); text-transform: uppercase;
+  margin-bottom: 2rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.eyebrow::before {
+  content: '';
+  display: block; width: 32px; height: 1px;
+  background: var(--cyan);
+}
+
+.hero-headline {
+  font-size: clamp(2.8rem, 4.5vw, 4.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin-bottom: 2rem;
+  font-weight: 700;
+}
+.hero-headline em {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--cyan);
+  letter-spacing: 0;
+}
+
+.hero-sub {
+  font-size: 1rem; line-height: 1.7;
+  color: var(--dim); max-width: 400px;
+  margin-bottom: 3rem;
+  font-weight: 300;
+}
+
+.hero-actions {
+  display: flex; gap: 1rem; align-items: center;
+  margin-bottom: 5rem;
+}
+.btn-primary {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem; letter-spacing: 0.12em;
+  text-transform: uppercase; text-decoration: none;
+  padding: 0.9rem 2rem;
+  background: var(--cyan); color: var(--dark);
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+.btn-primary:hover { opacity: 0.85 }
+.btn-ghost {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem; letter-spacing: 0.12em;
+  text-transform: uppercase; text-decoration: none;
+  color: var(--dim);
+  display: flex; align-items: center; gap: 0.5rem;
+  transition: color 0.2s;
+}
+.btn-ghost:hover { color: var(--text) }
+.btn-ghost svg { width: 14px; height: 14px }
+
+/* ── TEAM CARD (rotating) ── */
+.team-card-wrap {
+  max-width: 340px;
+  position: relative;
+  height: 76px; /* fixed height prevents layout shift */
+}
+.architect {
+  display: flex; align-items: center; gap: 1.5rem;
+  padding: 1.2rem 1.5rem;
+  border: 1px solid var(--border);
+  background: rgba(13,13,26,0.6);
+  backdrop-filter: blur(10px);
+  max-width: 340px;
+  text-decoration: none; color: inherit;
+  transition: border-color 0.2s, background 0.2s;
+  position: absolute; inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease, border-color 0.2s, background 0.2s;
+}
+.architect.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.architect:hover { border-color: var(--cyan); background: var(--cyan-dim); }
+
+.architect-avatar {
+  width: 52px; height: 52px; border-radius: 50%;
+  padding: 2px;
+  background: conic-gradient(var(--cyan), #b44dff, #ff2d95, var(--cyan));
+  flex-shrink: 0;
+  animation: ring-spin 8s linear infinite;
+}
+@keyframes ring-spin { to { filter: hue-rotate(360deg) } }
+.architect-avatar-inner {
+  width: 100%; height: 100%; border-radius: 50%;
+  overflow: hidden;
+  background: var(--dark2);
+  display: flex; align-items: center; justify-content: center;
+}
+.architect-avatar-inner img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center top;
+  filter: grayscale(0.4) contrast(1.1);
+}
+.architect-avatar-inner .avatar-initials {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.9rem; font-weight: 700;
+  color: var(--cyan); letter-spacing: 0.05em;
+}
+
+.architect-info {}
+.architect-name {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.1em; color: var(--text);
+  margin-bottom: 0.25rem;
+}
+.architect-role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem; color: var(--dim);
+  letter-spacing: 0.05em;
+}
+.architect-status {
+  margin-left: auto;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem;
+}
+.status-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 1 }
+  50% { opacity: 0.3 }
+}
+
+/* ── RIGHT PANEL — ARCH ── */
+.hero-right {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  padding: 3rem 4rem 3rem 2rem;
+  overflow: hidden;
+}
+
+/* The arch container */
+.arch-wrap {
+  position: relative;
+  width: 100%; max-width: 460px;
+  height: calc(100vh - 56px - 6rem);
+  max-height: 680px;
+}
+
+/* Outer glow ring */
+.arch-wrap::before {
+  content: '';
+  position: absolute; inset: -2px;
+  border-radius: 9999px 9999px 12px 12px;
+  background: conic-gradient(
+    rgba(0,229,255,0.4), rgba(180,77,255,0.3),
+    rgba(255,45,149,0.2), rgba(0,229,255,0.4)
+  );
+  animation: ring-spin 12s linear infinite;
+  z-index: 0;
+}
+
+.arch {
+  position: absolute; inset: 2px;
+  border-radius: 9999px 9999px 10px 10px;
+  overflow: hidden; z-index: 1;
+}
+
+.arch-img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center top;
+  filter: brightness(0.75) saturate(0.9);
+  transition: transform 8s ease;
+}
+.arch-wrap:hover .arch-img {
+  transform: scale(1.04);
+}
+
+/* Dark overlay gradient at bottom */
+.arch::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 40%,
+    rgba(8,8,16,0.7) 100%
+  );
+  pointer-events: none;
+}
+
+/* Floating second portal — nested circle */
+.portal-small {
+  position: absolute;
+  bottom: 2.5rem; right: -1.5rem;
+  width: 130px; height: 130px;
+  border-radius: 50%;
+  overflow: hidden; z-index: 2;
+  border: 2px solid rgba(0,229,255,0.3);
+  box-shadow: 0 0 30px rgba(0,229,255,0.15), inset 0 0 20px rgba(0,0,0,0.4);
+}
+.portal-small img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  filter: brightness(0.8) saturate(1.1);
+}
+
+/* Data tag on arch */
+.arch-tag {
+  position: absolute; bottom: 2rem; left: 2rem;
+  z-index: 3;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem; letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+}
+.arch-tag span {
+  color: var(--cyan);
+  display: block; font-size: 0.7rem; font-weight: 400;
+  margin-top: 0.2rem;
+}
+
+/* Horizontal line accent */
+.h-rule {
+  position: absolute; top: 50%;
+  left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, var(--border), transparent);
+  z-index: 0;
+}
+
+/* ── STATS ROW ── */
+.stats {
+  position: relative; z-index: 2;
+  display: grid; grid-template-columns: repeat(3,1fr);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.stat {
+  padding: 2rem 3rem;
+  border-right: 1px solid var(--border);
+}
+.stat:last-child { border-right: none }
+.stat-value {
+  font-family: 'Orbitron', monospace;
+  font-size: 2rem; font-weight: 700;
+  color: var(--cyan); letter-spacing: -0.02em;
+  margin-bottom: 0.4rem;
+}
+.stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; color: var(--dim);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+
+/* ── SERVICES ROW ── */
+.services {
+  position: relative; z-index: 2;
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 0; padding: 4rem 6rem;
+  background: var(--dark2);
+}
+.service {
+  padding: 2rem;
+  border: 1px solid var(--border);
+  margin: -1px 0 0 -1px;
+  transition: background 0.2s;
+}
+.service:hover { background: rgba(0,229,255,0.04) }
+.service-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem; color: var(--cyan);
+  letter-spacing: 0.15em; margin-bottom: 1rem;
+}
+.service-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.35rem; font-style: italic;
+  color: var(--text); margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+.service-desc {
+  font-size: 0.82rem; color: var(--dim);
+  line-height: 1.6; font-weight: 300;
+}
+
+/* ── MANIFESTO ── */
+.manifesto {
+  position: relative; z-index: 2;
+  background: #000;
+  padding: 10rem 6rem;
+  overflow: hidden;
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+.manifesto-ghost {
+  position: absolute;
+  font-family: 'Orbitron', monospace;
+  font-size: 18vw; font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(0,229,255,0.045);
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  pointer-events: none;
+  white-space: nowrap; letter-spacing: 0.1em;
+  user-select: none;
+}
+.manifesto-inner { position: relative; z-index: 1; }
+.manifesto-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; letter-spacing: 0.2em;
+  color: var(--dim); text-transform: uppercase;
+  margin-bottom: 3rem;
+}
+.manifesto-headline {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(3rem, 6vw, 6rem);
+  font-weight: 400; line-height: 1.1;
+  color: var(--text); margin-bottom: 2.5rem;
+}
+.manifesto-headline em { color: var(--cyan); font-style: italic; }
+.manifesto-body {
+  max-width: 600px; margin: 0 auto;
+  font-size: 1.05rem; line-height: 1.8;
+  color: var(--dim); font-weight: 300;
+}
+
+/* ── CASE STUDIES ── */
+.case {
+  position: relative; z-index: 2;
+  padding: 8rem 6rem;
+  background: var(--dark2);
+  border-top: 1px solid var(--border);
+}
+.case--dark { background: #000 }
+.case-meta {
+  display: flex; gap: 2rem; align-items: center;
+  margin-bottom: 4rem;
+}
+.case-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; letter-spacing: 0.15em;
+  color: var(--cyan); text-transform: uppercase;
+}
+.case-year {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; color: var(--dim); letter-spacing: 0.1em;
+}
+.case-layout {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 6rem; align-items: center;
+}
+.case--reverse .case-layout { direction: rtl; }
+.case--reverse .case-layout > * { direction: ltr; }
+.case-headline {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-weight: 400; line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+.case-headline em { font-style: italic; color: var(--cyan); }
+.case-body {
+  font-size: 0.95rem; line-height: 1.75;
+  color: var(--dim); font-weight: 300;
+  margin-bottom: 2rem; max-width: 480px;
+}
+.case-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem; letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--border); color: var(--dim);
+}
+.case-img-wrap { position: relative; }
+.case-img-wrap > img {
+  width: 100%; border-radius: 4px; display: block;
+  filter: brightness(0.6) saturate(0.8);
+}
+.case-stat-float {
+  position: absolute; bottom: 1.5rem; left: 1.5rem;
+  background: rgba(8,8,16,0.88);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  padding: 0.8rem 1.2rem;
+}
+.case-stat-float--2 { left: auto; right: 1.5rem; bottom: 6rem; }
+.csf-value {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.4rem; font-weight: 700;
+  color: var(--cyan); letter-spacing: -0.02em;
+}
+.csf-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem; color: var(--dim);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  margin-top: 0.2rem;
+}
+/* pill image + terminal */
+.case-img-pill { position: relative; }
+.case-img-pill > img {
+  width: 100%; max-height: 600px; object-fit: cover; border-radius: 200px; display: block;
+  filter: brightness(0.5) saturate(0.7) hue-rotate(180deg);
+}
+.terminal-box {
+  position: absolute; bottom: 2rem; right: -2rem;
+  background: rgba(0,0,0,0.92);
+  border: 1px solid rgba(0,229,255,0.2);
+  padding: 1rem 1.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem; line-height: 1.9;
+  min-width: 260px;
+  backdrop-filter: blur(10px);
+}
+.terminal-line { color: var(--text) }
+.t-dim { color: var(--dim) }
+.t-out { color: rgba(255,255,255,0.45) }
+.t-cyan { color: var(--cyan) }
+
+/* ── PROCESS ── */
+.process {
+  position: relative; z-index: 2;
+  padding: 8rem 6rem;
+  background: var(--dark);
+  border-top: 1px solid var(--border);
+}
+.section-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; letter-spacing: 0.25em;
+  color: var(--cyan); text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.section-heading {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2rem, 3.5vw, 3.5rem);
+  font-weight: 400; line-height: 1.15;
+  margin-bottom: 5rem; max-width: 500px;
+}
+.process-steps {
+  display: flex; align-items: flex-start; gap: 1rem;
+}
+.step {
+  flex: 1; padding: 2rem;
+  border: 1px solid var(--border);
+  background: rgba(13,13,26,0.5);
+  transition: border-color 0.2s, background 0.2s;
+}
+.step:hover { border-color: rgba(0,229,255,0.3); background: rgba(0,229,255,0.03); }
+.step-num {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.65rem; color: var(--cyan);
+  letter-spacing: 0.15em; margin-bottom: 1rem;
+}
+.step-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.4rem; font-style: italic;
+  margin-bottom: 0.75rem; color: var(--text);
+}
+.step-desc {
+  font-size: 0.82rem; color: var(--dim);
+  line-height: 1.65; font-weight: 300;
+}
+.step-arrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem; color: var(--border);
+  margin-top: 3rem; flex-shrink: 0;
+  align-self: flex-start;
+}
+
+/* ── LOGOS ── */
+.logos {
+  position: relative; z-index: 2;
+  padding: 4rem 6rem;
+  border-top: 1px solid var(--border);
+  background: var(--dark2);
+}
+.logos-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; letter-spacing: 0.15em;
+  color: var(--dim); text-transform: uppercase;
+  text-align: center; margin-bottom: 2.5rem;
+}
+.logos-row {
+  display: flex; align-items: center;
+  justify-content: center;
+  gap: 3.5rem; flex-wrap: wrap;
+}
+.logos-row img {
+  height: 28px; width: auto;
+  filter: grayscale(1) brightness(0.35);
+  opacity: 0.7;
+  transition: opacity 0.2s, filter 0.2s;
+}
+.logos-row img:hover { opacity: 1; filter: grayscale(1) brightness(0.7); }
+
+/* ── CTA SECTION ── */
+.cta-section {
+  position: relative; z-index: 2;
+  min-height: 80vh;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+}
+.cta-bg { position: absolute; inset: 0; }
+.cta-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.cta-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(8,8,16,0.96) 0%,
+    rgba(8,8,16,0.72) 50%,
+    rgba(8,8,16,0.92) 100%
+  );
+}
+.cta-content {
+  position: relative; z-index: 2;
+  text-align: center; padding: 4rem;
+  max-width: 700px;
+}
+.cta-headline {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 400; line-height: 1.1;
+  margin: 1.5rem 0;
+}
+.cta-headline em { font-style: italic; color: var(--cyan); }
+.cta-sub {
+  font-size: 1rem; color: var(--dim);
+  line-height: 1.7; font-weight: 300;
+  margin-bottom: 2.5rem;
+}
+
+/* ── THEME TOGGLE BUTTON ── */
+.theme-toggle {
+  background: none; border: 1px solid var(--border);
+  padding: 0.4rem; cursor: pointer; color: var(--dim);
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.2s, color 0.2s;
+  flex-shrink: 0; line-height: 0;
+}
+.theme-toggle:hover { border-color: var(--cyan); color: var(--cyan); }
+/* dark mode: show sun (click to go light) */
+.theme-toggle .icon-sun { display: block; }
+.theme-toggle .icon-moon { display: none; }
+/* light mode: show moon (click to go dark) */
+html[data-theme="light"] .theme-toggle .icon-sun { display: none; }
+html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
+
+/* ── LIGHT THEME ── */
+html[data-theme="light"] {
+  --cyan:     #007fa3;
+  --cyan-dim: rgba(0,127,163,0.1);
+  --dark:     #f7f6f2;
+  --dark2:    #edecea;
+  --text:     #0d0d1a;
+  --dim:      #7a7a8c;
+  --border:   rgba(13,13,26,0.1);
+}
+html[data-theme="light"] body::before {
+  background-image:
+    linear-gradient(rgba(13,13,26,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(13,13,26,0.04) 1px, transparent 1px);
+}
+html[data-theme="light"] body::after { display: none; }
+html[data-theme="light"] nav { background: rgba(247,246,242,0.92); }
+html[data-theme="light"] .architect { background: rgba(237,236,234,0.8); }
+html[data-theme="light"] .service:hover { background: rgba(0,127,163,0.05); }
+html[data-theme="light"] .step { background: rgba(237,236,234,0.6); }
+html[data-theme="light"] .step:hover { border-color: rgba(0,127,163,0.3); background: rgba(0,127,163,0.04); }
+html[data-theme="light"] .logos-row img { filter: grayscale(1) invert(1); opacity: 0.35; }
+html[data-theme="light"] .logos-row img:hover { opacity: 0.65; }
+html[data-theme="light"] .manifesto { background: var(--dark2) !important; border-top-color: var(--border); }
+html[data-theme="light"] .manifesto .manifesto-tag { color: var(--dim); }
+html[data-theme="light"] .manifesto .manifesto-headline { color: var(--text); }
+html[data-theme="light"] .manifesto .manifesto-body { color: var(--dim); }
+html[data-theme="light"] .case--dark { background: var(--dark) !important; }
+html[data-theme="light"] .case--dark .case-headline { color: var(--text); }
+html[data-theme="light"] .case--dark .case-body { color: var(--dim); }
+html[data-theme="light"] .case--dark .pill { border-color: var(--border); color: var(--dim); }
+html[data-theme="light"] .case--dark .case-tag { color: var(--cyan); }
+html[data-theme="light"] .case--dark .case-year { color: var(--dim); }
+html[data-theme="light"] .case--dark .terminal-box { background: var(--dark2); border-color: var(--border); }
+html[data-theme="light"] .case--dark .terminal-line { color: var(--text); }
+html[data-theme="light"] .case--dark .t-dim { color: var(--dim); }
+html[data-theme="light"] .case--dark .t-out { color: var(--dim); opacity: 0.7; }
+html[data-theme="light"] .case--dark .t-cyan { color: var(--cyan); }
+html[data-theme="light"] .cta-overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(247,246,242,0.97) 0%,
+    rgba(247,246,242,0.82) 50%,
+    rgba(247,246,242,0.95) 100%
+  );
+}
+html[data-theme="light"] .cta-headline { color: var(--text) !important; }
+html[data-theme="light"] .cta-sub { color: var(--dim) !important; }
+html[data-theme="light"] .footer { background: var(--dark2) !important; }
+html[data-theme="light"] .footer .footer-logo { color: var(--cyan); }
+html[data-theme="light"] .footer .footer-tagline { color: var(--dim); }
+html[data-theme="light"] .footer .footer-links a { color: var(--dim); }
+html[data-theme="light"] .footer .footer-links a:hover { color: var(--cyan); }
+html[data-theme="light"] .footer .footer-copy { color: var(--dim); opacity: 0.6; }
+
+/* ── FOOTER ── */
+.footer {
+  position: relative; z-index: 2;
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 6rem;
+  background: #000;
+}
+.footer-inner {
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 2rem;
+}
+.footer-logo {
+  font-family: 'Orbitron', monospace;
+  font-weight: 900; font-size: 1rem;
+  color: var(--cyan); letter-spacing: 0.2em;
+}
+.footer-tagline {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic; color: var(--dim); font-size: 0.95rem;
+}
+.footer-links { display: flex; gap: 2rem; }
+.footer-links a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; letter-spacing: 0.1em;
+  color: var(--dim); text-decoration: none;
+  text-transform: uppercase; transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--cyan) }
+.footer-copy {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem; color: var(--dim); letter-spacing: 0.05em;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">KYBURN</a>
+  <ul class="nav-links">
+    <li><a href="#">Work</a></li>
+    <li><a href="#">Method</a></li>
+    <li><a href="#">About</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:1rem;">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark theme">
+      <!-- moon: shown in dark mode -->
+      <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+      <!-- sun: shown in light mode -->
+      <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="5"/>
+        <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>
+    </button>
+    <a class="nav-cta" href="#">Start a project</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+
+  <!-- LEFT -->
+  <div class="hero-left">
+    <div class="eyebrow">AI Workflow Studio</div>
+
+    <h1 class="hero-headline">
+      We make your<br>
+      business run<br>
+      <em>at the speed</em><br>
+      of thought.
+    </h1>
+
+    <p class="hero-sub">
+      Custom AI systems, automations, and operational infrastructure
+      for businesses that want to move faster — without hiring more people.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#" class="btn-primary">See our work</a>
+      <a href="#" class="btn-ghost">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+        How we work
+      </a>
+    </div>
+
+    <!-- Team cards (rotating) -->
+    <div class="team-card-wrap" id="teamCardWrap">
+      <a class="architect active" href="jaap.html">
+        <div class="architect-avatar">
+          <div class="architect-avatar-inner">
+            <img src="profile.jpg" alt="Jaap Oosterbroek">
+          </div>
+        </div>
+        <div class="architect-info">
+          <div class="architect-name">Jaap Oosterbroek</div>
+          <div class="architect-role">AI Architect</div>
+        </div>
+        <div class="architect-status"><div class="status-dot"></div></div>
+      </a>
+      <a class="architect" href="philippe.html">
+        <div class="architect-avatar">
+          <div class="architect-avatar-inner">
+            <span class="avatar-initials">PL</span>
+          </div>
+        </div>
+        <div class="architect-info">
+          <div class="architect-name">Philippe Larcher</div>
+          <div class="architect-role">Growth &amp; Strategy</div>
+        </div>
+        <div class="architect-status"><div class="status-dot"></div></div>
+      </a>
+      <a class="architect" href="julien.html">
+        <div class="architect-avatar">
+          <div class="architect-avatar-inner">
+            <span class="avatar-initials">JK</span>
+          </div>
+        </div>
+        <div class="architect-info">
+          <div class="architect-name">Julien Klepatch</div>
+          <div class="architect-role">Automation &amp; n8n</div>
+        </div>
+        <div class="architect-status"><div class="status-dot"></div></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- RIGHT — ARCH PORTAL -->
+  <div class="hero-right">
+    <div class="arch-wrap">
+      <div class="arch">
+        <img class="arch-img" src="juvet$.webp" alt="Juvet Landscape Hotel">
+      </div>
+
+      <!-- nested circle portal -->
+      <div class="portal-small">
+        <img src="Untitled.png" alt="Contemplative">
+      </div>
+
+      <!-- data tag -->
+      <div class="arch-tag">
+        Location
+        <span>Juvet, Norway</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-value">1.3M€</div>
+    <div class="stat-label">SEO revenue unlocked — EDN Group</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">×2–3</div>
+    <div class="stat-label">Conversion lift — AI diagnostic</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">16+</div>
+    <div class="stat-label">Automations in production</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div class="services">
+  <div class="service">
+    <div class="service-num">01 ——</div>
+    <div class="service-title">AI Workflow Automation</div>
+    <div class="service-desc">Replace manual processes with intelligent systems that run 24/7. From quote generation to lead enrichment to content pipelines.</div>
+  </div>
+  <div class="service">
+    <div class="service-num">02 ——</div>
+    <div class="service-title">Custom Software & CRMs</div>
+    <div class="service-desc">When off-the-shelf doesn't fit, we build it. CRMs, dashboards, and operational tools designed around how your business actually works.</div>
+  </div>
+  <div class="service">
+    <div class="service-num">03 ——</div>
+    <div class="service-title">SEO & Lead Generation</div>
+    <div class="service-desc">Authority-map SEO strategy combined with AI-powered content factories. From invisible to dominant — at scale.</div>
+  </div>
+</div>
+
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <div class="manifesto-ghost">CYBERNETICS</div>
+  <div class="manifesto-inner">
+    <div class="manifesto-tag">— Philosophy —</div>
+    <h2 class="manifesto-headline">The machine runs.<br><em>You direct.</em></h2>
+    <p class="manifesto-body">The richest people today have a human assistant who executes on a voice message. Tomorrow, every business owner will have a machine that does the same — but faster, 24/7, and at a fraction of the cost. We build that machine.</p>
+  </div>
+</section>
+
+<!-- CASE STUDY 01 — EDN -->
+<section class="case">
+  <div class="case-meta">
+    <span class="case-tag">Case Study — EDN Group</span>
+    <span class="case-year">2023–2025</span>
+  </div>
+  <div class="case-layout">
+    <div class="case-content">
+      <h2 class="case-headline">From invisible<br>to <em>1.3M€.</em></h2>
+      <p class="case-body">A pest control company with zero organic visibility. We built a full SEO strategy — topical maps, content clusters, 50+ city-level lead-gen pages. Then an AI diagnostic tool that qualified leads before a human touched them. Three years later: 1.3M€ in revenue attributed directly to organic.</p>
+      <div class="case-pills">
+        <span class="pill">SEO Strategy</span>
+        <span class="pill">Content Factory</span>
+        <span class="pill">AI Diagnostics</span>
+        <span class="pill">Multi-tenant Sites</span>
+      </div>
+      <a href="#" class="btn-primary" style="display:inline-block;margin-top:2rem;text-decoration:none;">Read the case →</a>
+    </div>
+    <div class="case-visual">
+      <div class="case-img-wrap">
+        <img src="Untitled (1).png" alt="EDN Case Study">
+        <div class="case-stat-float">
+          <div class="csf-value">1.3M€</div>
+          <div class="csf-label">SEO Revenue</div>
+        </div>
+        <div class="case-stat-float case-stat-float--2">
+          <div class="csf-value">×2–3</div>
+          <div class="csf-label">Conversion lift</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS — THE LOOP -->
+<section class="process">
+  <div class="section-eyebrow">Method</div>
+  <h2 class="section-heading">The feedback loop<br>that runs your ops.</h2>
+  <div class="process-steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Audit</div>
+      <div class="step-desc">We map every manual process, bottleneck, and missed signal in your operation. Nothing hidden, nothing assumed.</div>
+    </div>
+    <div class="step-arrow">→</div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">Design</div>
+      <div class="step-desc">Architecture for systems that fit your business — not generic software bent to shape. Precise, minimal, ownable.</div>
+    </div>
+    <div class="step-arrow">→</div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">Build</div>
+      <div class="step-desc">Automations, tools, and AI agents — deployed and integrated into your actual workflows. Ships fast, runs reliably.</div>
+    </div>
+    <div class="step-arrow">→</div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-title">Iterate</div>
+      <div class="step-desc">The system improves with feedback. The loop tightens. You gain speed — every cycle faster than the last.</div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGOS -->
+<section class="logos">
+  <div class="logos-label">Work that has crossed desks at</div>
+  <div class="logos-row">
+    <img src="logo-shell.jpg" alt="Shell">
+    <img src="logo-volvo.jpg" alt="Volvo">
+    <img src="logo-vera.jpg" alt="Vera">
+    <img src="logo-nvm.jpg" alt="NVM">
+    <img src="logo-openmined.jpg" alt="OpenMined">
+    <img src="logo-srai.jpg" alt="SRAI">
+    <img src="logo-soyaka.jpg" alt="Soyaka">
+  </div>
+</section>
+
+<!-- CASE STUDY 02 — WINDWARD -->
+<section class="case case--reverse case--dark">
+  <div class="case-meta">
+    <span class="case-tag">Case Study — Windward Yachts</span>
+    <span class="case-year">2024</span>
+  </div>
+  <div class="case-layout">
+    <div class="case-visual">
+      <div class="case-img-pill">
+        <img src="photo-1638648388743-6108e2720489.avif" alt="Windward">
+        <div class="terminal-box">
+          <div class="terminal-line"><span class="t-dim">$</span> quote.generate(client_id)</div>
+          <div class="terminal-line t-out">→ fetching booking data…</div>
+          <div class="terminal-line t-out">→ 28 fields populated</div>
+          <div class="terminal-line t-out">→ PDF rendered in French</div>
+          <div class="terminal-line t-cyan">→ Email sent ✓</div>
+          <div class="terminal-line t-dim">elapsed: 4.2s</div>
+        </div>
+      </div>
+    </div>
+    <div class="case-content">
+      <h2 class="case-headline">A quote that<br><em>sends itself.</em></h2>
+      <p class="case-body">Windward's manual quote process took 30+ minutes per request. We built an n8n automation: spreadsheet trigger → Booking Manager API → 28-field HTML quote card, rendered in French, auto-sent. Manual hours collapsed to seconds.</p>
+      <div class="case-pills">
+        <span class="pill">n8n Automation</span>
+        <span class="pill">Google Sheets</span>
+        <span class="pill">Custom CRM</span>
+        <span class="pill">Email Delivery</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-bg">
+    <img src="Untitled (2).png" alt="">
+  </div>
+  <div class="cta-overlay"></div>
+  <div class="cta-content">
+    <div class="eyebrow" style="justify-content:center;">Ready to move faster?</div>
+    <h2 class="cta-headline">Your business,<br><em>on autopilot.</em></h2>
+    <p class="cta-sub">We take 3 new clients per quarter.<br>Tell us what's slowing you down.</p>
+    <a href="#" class="btn-primary" style="text-decoration:none;">Start a project →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">KYBURN</div>
+    <div class="footer-tagline">Steer faster.</div>
+    <div class="footer-links">
+      <a href="#">Work</a>
+      <a href="#">Method</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="footer-copy">© 2025 Kyburn. AI Workflow Studio.</div>
+  </div>
+</footer>
+
+
+<script>
+  const html = document.documentElement;
+  const btn = document.getElementById('themeToggle');
+
+  function applyTheme(theme) {
+    html.setAttribute('data-theme', theme);
+    localStorage.setItem('kyburn-theme', theme);
+  }
+
+  // Restore saved preference
+  applyTheme(localStorage.getItem('kyburn-theme') || 'dark');
+
+  btn.addEventListener('click', () => {
+    applyTheme(html.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+  });
+
+  // Team card rotation
+  const cards = document.querySelectorAll('#teamCardWrap .architect');
+  let current = 0;
+  setInterval(() => {
+    cards[current].classList.remove('active');
+    current = (current + 1) % cards.length;
+    cards[current].classList.add('active');
+  }, 3500);
+</script>
+</body>
+</html>

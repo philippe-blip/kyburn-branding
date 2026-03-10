@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Julien Klepatch — Automation & n8n | Kyburn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0 }
+
+:root {
+  --cyan:     #00e5ff;
+  --cyan-dim: rgba(0,229,255,0.15);
+  --dark:     #080810;
+  --dark2:    #0d0d1a;
+  --text:     #dde2f0;
+  --dim:      #5a6080;
+  --border:   rgba(0,229,255,0.1);
+}
+html[data-theme="light"] {
+  --cyan:     #007fa3;
+  --cyan-dim: rgba(0,127,163,0.1);
+  --dark:     #f7f6f2;
+  --dark2:    #edecea;
+  --text:     #0d0d1a;
+  --dim:      #7a7a8c;
+  --border:   rgba(13,13,26,0.1);
+}
+
+html { scroll-behavior: smooth }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--dark); color: var(--text);
+  overflow-x: hidden; min-height: 100vh;
+}
+body::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+html[data-theme="dark"] body::after {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1;
+  background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px);
+}
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem; height: 56px;
+  background: rgba(8,8,16,0.85); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border); transition: background 0.3s;
+}
+html[data-theme="light"] nav { background: rgba(247,246,242,0.92); }
+.nav-logo { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1.1rem; color: var(--cyan); letter-spacing: 0.2em; text-decoration: none; }
+.nav-back { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; display: flex; align-items: center; gap: 0.5rem; }
+.nav-back:hover { color: var(--cyan) }
+.nav-back:hover svg { transform: translateX(-3px) }
+.nav-back svg { transition: transform 0.2s }
+.theme-toggle { background: none; border: 1px solid var(--border); padding: 0.4rem; cursor: pointer; color: var(--dim); display: flex; align-items: center; justify-content: center; transition: border-color 0.2s, color 0.2s; line-height: 0; }
+.theme-toggle:hover { border-color: var(--cyan); color: var(--cyan); }
+.theme-toggle .icon-sun { display: block; }
+.theme-toggle .icon-moon { display: none; }
+html[data-theme="light"] .theme-toggle .icon-sun { display: none; }
+html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
+
+.page { position: relative; z-index: 2; display: grid; grid-template-columns: 300px 1fr; min-height: 100vh; padding-top: 56px; }
+.sidebar { padding: 3.5rem 2.5rem 5rem; border-right: 1px solid var(--border); position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; scrollbar-width: none; }
+.sidebar::-webkit-scrollbar { display: none }
+
+.avatar-wrap { width: 120px; height: 120px; border-radius: 50%; padding: 2px; background: conic-gradient(var(--cyan), #b44dff, #ff2d95, var(--cyan)); animation: ring-spin 8s linear infinite; margin-bottom: 2rem; }
+@keyframes ring-spin { to { filter: hue-rotate(360deg) } }
+.avatar-inner { width: 100%; height: 100%; border-radius: 50%; background: var(--dark2); display: flex; align-items: center; justify-content: center; }
+.avatar-initials { font-family: 'Orbitron', monospace; font-size: 1.8rem; font-weight: 900; color: var(--cyan); letter-spacing: 0.05em; }
+
+.profile-name { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--text); margin-bottom: 0.3rem; }
+.profile-role { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--cyan); letter-spacing: 0.08em; margin-bottom: 0.6rem; }
+.profile-status { display: flex; align-items: center; gap: 0.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--dim); letter-spacing: 0.08em; margin-bottom: 1.8rem; }
+.status-dot { width: 6px; height: 6px; border-radius: 50%; background: #00e87a; box-shadow: 0 0 6px #00e87a; animation: pulse-dot 2s ease-in-out infinite; }
+@keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+.linkedin-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.72rem; color: var(--dim); text-decoration: none; margin-bottom: 2rem; transition: color 0.2s; }
+.linkedin-link:hover { color: var(--cyan) }
+.bio { font-size: 0.88rem; font-weight: 300; color: var(--dim); line-height: 1.75; margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.side-label { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); margin-bottom: 1rem; opacity: 0.6; }
+.sidebar-section { margin-bottom: 2rem; }
+.skills-row { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.5rem; }
+.skill { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; padding: 0.25rem 0.6rem; color: var(--dim); border: 1px solid var(--border); transition: all 0.25s; cursor: default; }
+.skill:hover { color: var(--cyan); border-color: var(--cyan); background: var(--cyan-dim); }
+
+.main { padding: 3.5rem 4rem 6rem; }
+.section-label { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); margin-bottom: 2rem; opacity: 0.6; }
+.exp { padding: 1.5rem 1.8rem; border: 1px solid var(--border); border-left: 2px solid transparent; background: rgba(255,255,255,0.02); margin-bottom: 0.75rem; transition: all 0.3s; }
+html[data-theme="light"] .exp { background: rgba(0,0,0,0.02); }
+.exp:hover { border-left-color: var(--cyan); background: var(--cyan-dim); transform: translateX(3px); }
+.exp-top { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 0.2rem; }
+.exp-role { font-size: 0.95rem; font-weight: 500; color: var(--text); }
+.exp-date { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--dim); white-space: nowrap; }
+.exp-company { font-size: 0.82rem; color: var(--cyan); margin-bottom: 0.5rem; }
+.exp-desc { font-size: 0.85rem; font-weight: 300; color: var(--dim); line-height: 1.65; }
+.current-dot { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: #00e87a; margin-right: 4px; box-shadow: 0 0 5px #00e87a; vertical-align: middle; }
+
+.yt-badge {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+  color: #ff4444; border: 1px solid rgba(255,68,68,0.25);
+  padding: 0.25rem 0.6rem; margin-top: 0.5rem; letter-spacing: 0.05em;
+}
+.yt-badge svg { flex-shrink: 0; }
+
+.profile-cta { margin-top: 3rem; padding: 2.5rem; border: 1px solid var(--border); background: var(--cyan-dim); }
+.profile-cta h3 { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--text); margin-bottom: 0.5rem; }
+.profile-cta p { font-size: 0.88rem; color: var(--dim); line-height: 1.7; margin-bottom: 1.5rem; }
+.btn-primary { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.12em; padding: 0.85rem 2rem; text-transform: uppercase; background: var(--cyan); color: #000; text-decoration: none; font-weight: 600; transition: opacity 0.2s; }
+.btn-primary:hover { opacity: 0.85 }
+
+@media (max-width: 900px) {
+  .page { grid-template-columns: 1fr; }
+  .sidebar { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); padding: 2.5rem 1.5rem; }
+  .main { padding: 2.5rem 1.5rem 4rem; }
+  nav { padding: 0 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="concept-v0.html">KYBURN</a>
+  <a class="nav-back" href="concept-v0.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    Back
+  </a>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+    <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+  </button>
+</nav>
+
+<div class="page">
+  <aside class="sidebar">
+    <div class="avatar-wrap">
+      <div class="avatar-inner">
+        <span class="avatar-initials">JK</span>
+      </div>
+    </div>
+
+    <div class="profile-name">Julien Klepatch</div>
+    <div class="profile-role">Automation &amp; n8n Lead</div>
+    <div class="profile-status">
+      <span class="status-dot"></span>
+      Available for projects
+    </div>
+
+    <a class="linkedin-link" href="https://linkedin.com/in/julienklepatch" target="_blank" rel="noopener">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      linkedin.com/in/julienklepatch
+    </a>
+
+    <p class="bio">n8n expert, automation architect, and creator behind one of the top n8n YouTube channels. Builds production-grade workflows that turn manual ops into zero-touch pipelines.</p>
+
+    <div class="sidebar-section">
+      <div class="side-label">Expertise</div>
+      <div class="skills-row">
+        <span class="skill">n8n</span>
+        <span class="skill">Workflow Automation</span>
+        <span class="skill">AI Agents</span>
+      </div>
+      <div class="skills-row">
+        <span class="skill">Lead Generation</span>
+        <span class="skill">API Integration</span>
+        <span class="skill">Webhooks</span>
+      </div>
+      <div class="skills-row">
+        <span class="skill">YouTube / Content</span>
+        <span class="skill">JavaScript</span>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="section-label">— Experience —</div>
+
+    <div class="exp">
+      <div class="exp-top">
+        <span class="exp-role">Co-founder &amp; Automation Lead</span>
+        <span class="exp-date"><span class="current-dot"></span>2025 – present</span>
+      </div>
+      <div class="exp-company">Kyburn</div>
+      <div class="exp-desc">Designs and delivers automation systems for traditional businesses. Owns the n8n workflow layer — from intake to delivery — and drives lead generation strategy.</div>
+    </div>
+
+    <div class="exp">
+      <div class="exp-top">
+        <span class="exp-role">Creator — n8n &amp; AI Automation</span>
+        <span class="exp-date"><span class="current-dot"></span>2022 – present</span>
+      </div>
+      <div class="exp-company">YouTube</div>
+      <div class="exp-desc">Produces tutorials and deep-dives on n8n workflows, AI agents, and no-code automation. Consistently among the top n8n content creators globally.</div>
+      <div class="yt-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-2.73 12.56 12.56 0 0 0-7.47.05A4.83 4.83 0 0 1 4.58 6.7 14.87 14.87 0 0 0 4 12a14.87 14.87 0 0 0 .59 5.31 4.83 4.83 0 0 1 3.77 2.73 12.56 12.56 0 0 0 7.47-.05 4.83 4.83 0 0 1 3.77-2.73A14.87 14.87 0 0 0 20 12a14.87 14.87 0 0 0-.41-5.31zM10 15V9l5 3-5 3z"/></svg>
+        YouTube · n8n tutorials
+      </div>
+    </div>
+
+    <div class="exp">
+      <div class="exp-top">
+        <span class="exp-role">Lead Gen &amp; Workflow Consultant</span>
+        <span class="exp-date">2021 – 2024</span>
+      </div>
+      <div class="exp-company">Independent</div>
+      <div class="exp-desc">Built automated lead generation systems and CRM integrations for SMEs across Europe. Specialty: multi-step enrichment pipelines with near-zero manual touch.</div>
+    </div>
+
+    <div class="exp">
+      <div class="exp-top">
+        <span class="exp-role">Windward Yachts</span>
+        <span class="exp-date">2024</span>
+      </div>
+      <div class="exp-company">Kyburn engagement</div>
+      <div class="exp-desc">Automated a 30-min manual quote process: spreadsheet trigger → Booking Manager API → 28-field HTML quote card rendered in French, auto-sent. Manual hours collapsed to seconds.</div>
+    </div>
+
+    <div class="profile-cta">
+      <h3>Work with Julien.</h3>
+      <p>If your team is spending hours on tasks that a workflow could handle in seconds — that's Julien's territory.</p>
+      <a href="concept-v0.html#contact" class="btn-primary">Start a project →</a>
+    </div>
+  </main>
+</div>
+
+<script>
+const html = document.documentElement;
+const btn = document.getElementById('themeToggle');
+function applyTheme(t) { html.setAttribute('data-theme', t); localStorage.setItem('kyburn-theme', t); }
+applyTheme(localStorage.getItem('kyburn-theme') || 'dark');
+btn.addEventListener('click', () => applyTheme(html.getAttribute('data-theme') === 'light' ? 'dark' : 'light'));
+</script>
+</body>
+</html>
