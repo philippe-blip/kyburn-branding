@@ -66,7 +66,7 @@ The second version doesn't just save time. It produces information that changes 
 
 ## Why businesses skip the feedback part
 
-It's not ignorance. There are real reasons:
+People know this, at least vaguely. They skip it anyway, for real reasons:
 
 **Feedback loops are harder to build.** Sending an email is simple. Tracking what happens afterward, routing that data back, and building conditional logic — that takes more thought and more wiring.
 

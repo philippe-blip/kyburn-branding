@@ -5,7 +5,7 @@ description: You cleaned up your business once. CRM, SOPs, meetings — it worke
 eyebrow: Blog
 headline: Why Order Never Sticks
 date: 2025-03-10
-excerpt: You fixed the chaos once. CRM, SOPs, meetings. It worked for a while. Then it came back. The problem isn't discipline — it's the system.
+excerpt: You fixed the chaos once. CRM, SOPs, meetings. It worked for a while. Then it came back. Something deeper than discipline is holding the old shape in place.
 tags: blog
 ---
 
@@ -17,7 +17,7 @@ It worked. For three weeks. Maybe six if you're lucky.
 
 Then the CRM went stale. The SOPs stopped being followed. The meetings turned into status updates nobody prepared for. And you — the founder — were back in the middle of everything, fixing, deciding, rescuing.
 
-This isn't a willpower problem. And it's not about finding better tools.
+Willpower wasn't the issue. Neither were the tools.
 
 ## The pull back to baseline
 
@@ -29,7 +29,7 @@ That default state was built over years. It's encoded in how decisions get made,
 
 ## Why the mess keeps winning
 
-The chaos isn't random. It's maintained by specific patterns that stay in place even after your improvement push.
+The chaos has structure. Specific patterns maintain it, and they stay in place long after your improvement push fades.
 
 **The founder is the router.** Every decision, exception, and escalation flows through one person. You delegate the task but keep the decision rights. People learn fast: don't bother with the system, just ask the boss.
 

@@ -5,13 +5,13 @@ description: Your people aren't lazy. They're busy. But problems still blow up b
 eyebrow: Blog
 headline: Why Your Team Reacts Too Late Even When Everyone Is Working Hard
 date: 2025-03-20
-excerpt: Your people aren't lazy. They're busy. But problems still blow up before anyone responds. The issue isn't effort — it's the delay between something going wrong and someone acting.
+excerpt: Your people are busy. Problems still blow up before anyone responds. Look at the delay between something going wrong and someone actually doing something about it.
 tags: blog
 ---
 
 The client churned and nobody saw it coming. The project went over budget and you found out at invoicing. The hire wasn't working out and it took four months to address.
 
-It's not that nobody cared. Everyone was busy. Everyone was working. The problem isn't effort — it's timing.
+Nobody dropped the ball. Everyone was busy, everyone was working. The problem was timing.
 
 By the time your team notices something is off, the window for a cheap fix has closed. What could have been a five-minute conversation last Tuesday is now a two-week recovery project.
 

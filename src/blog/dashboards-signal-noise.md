@@ -53,7 +53,7 @@ Nobody sets out to build a useless dashboard. The problem is how they grow.
 
 The temptation is to redesign the dashboards. Nicer layout, better filters, real-time updates.
 
-That rarely helps. The problem isn't presentation — it's selection.
+That rarely helps. You don't have a presentation problem. You have a selection problem.
 
 Here's what actually works:
 
