@@ -1,0 +1,10 @@
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/robots.txt
+  Cache-Control: public, max-age=86400
+
+/*.html
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400

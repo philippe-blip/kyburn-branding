@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /concept-v0-light.html
+
+Sitemap: https://kyburn.com/sitemap.xml

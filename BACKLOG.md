@@ -1,28 +1,34 @@
-# Branding Concept — Backlog
+# Branding & Design — Backlog
 
-## Next session priorities
+Items specific to the concept pages (design, layout, copy, visuals). Project-level items live in [`../../TODO.md`](../../TODO.md).
 
-### Case studies
-- [ ] Anonymiser EDN et Windward (noms génériques ou initiales) pour usage public
-- [ ] Fact-check les chiffres (1.3M€, 30min → secondes, x2-3 conversion lift)
-- [ ] Enrichir avec plus de détails : timeline, stack utilisée, avant/après
+## Layout & responsive
+- [x] Add media queries for all sections (hero, stats, services, cases, process, footer)
+- [x] Mobile nav (hamburger or drawer)
+- [x] Fix hero portal-small image crop/zoom
+- [x] Test dark + light theme on mobile
 
-### Navigation
-- [ ] Meilleure nav : liens actifs, page courante highlighted
-- [ ] Lien vers les profils depuis la nav (Team / About)
-- [ ] Mobile nav (hamburger ou drawer)
-- [ ] Smooth scroll vers sections internes
+## Copy & content
+- [x] Fix image alt texts (remove "Contemplative", "Untitled" etc.)
+- [x] Replace placeholder text (Juvet Hotel → Amsterdam, NL)
+- [x] Anonymize case study names (EDN → Facility Services, Windward → Charter Company)
+- [ ] Rewrite hero headline (test variants)
+- [ ] "How we work" steps — more precise descriptions
+- [ ] Case study numbers need owner review (1.3M€ is total revenue not SEO; Kyburn doesn't sell SEO — rethink positioning)
+- [ ] Replace placeholder imagery with relevant visuals
 
-### Contenu & copy
-- [ ] Rewrite hero headline (tester des variantes)
-- [ ] Section "How we work" — étapes plus précises
-- [ ] Vraie page de contact / CTA fonctionnel
+## Navigation
+- [ ] Smooth scroll to internal sections
+- [ ] Active link highlighting for current page/section
+- [ ] Link to team profiles from nav (Team / About dropdown?)
 
-### Site
-- [ ] Connecter GitHub → Vercel (auto-deploy sur push)
-- [ ] Migrer vers Astro (`site/`) quand le contenu est validé
-- [ ] Ajouter Plausible ou Vercel Analytics
+## Profiles
+- [ ] Verify/enrich Julien profile (experiences, dates)
+- [ ] Profile pages also need responsive treatment
 
-### Profils
-- [ ] Vérifier/enrichir le profil Julien (expériences, dates)
-- [ ] Ajouter Stéphane Le Bœuf si pertinent
+## Tech stack section
+- [ ] Replace placeholder SVG icons with actual tool logos (with brand colors)
+
+## Assets
+- [ ] Rename images: Untitled.png, Untitled (1).png, juvet$.webp → descriptive names
+- [ ] Optimize image sizes (some PNGs are 1-2MB)

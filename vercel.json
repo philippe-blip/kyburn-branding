@@ -1,3 +1,6 @@
 {
-  "rewrites": [{ "source": "/", "destination": "/concept-v0.html" }]
+  "rewrites": [
+    { "source": "/", "destination": "/concept-v0.html" },
+    { "source": "/sitemap.xml", "destination": "/api/sitemap.xml" }
+  ]
 }
