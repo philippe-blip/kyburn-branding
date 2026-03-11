@@ -7,6 +7,10 @@ headline: Why More Dashboards Often Make Your Business Harder to Run
 date: 2025-03-15
 excerpt: Dashboards were supposed to give you clarity. Instead you have twelve tabs, conflicting numbers, and no idea what matters. The problem is signal versus noise.
 tags: blog
+concept:
+  name: Signal vs Noise
+  brief: The useful information in a channel versus the random variation that obscures it — more data doesn't help if you can't tell which part matters.
+  origin: Formalized by Claude Shannon in A Mathematical Theory of Communication (1948), then applied broadly in cybernetics and systems thinking.
 ---
 
 At some point, someone convinced you that more data means better decisions.

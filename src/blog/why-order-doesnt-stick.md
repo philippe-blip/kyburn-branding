@@ -7,6 +7,10 @@ headline: Why Order Never Sticks
 date: 2025-03-10
 excerpt: You fixed the chaos once. CRM, SOPs, meetings. It worked for a while. Then it came back. Something deeper than discipline is holding the old shape in place.
 tags: blog
+concept:
+  name: Homeostasis
+  brief: A system's tendency to return to its default state, even after external force is applied.
+  origin: Coined by physiologist Walter Cannon in 1926, building on Claude Bernard's work on the stability of the internal body environment.
 ---
 
 You've done the cleanup before.

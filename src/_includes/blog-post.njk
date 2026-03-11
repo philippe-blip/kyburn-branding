@@ -3,6 +3,20 @@ layout: content-page.njk
 backLink: /blog/
 ---
 <div class="blog-meta">{{ page.date | isoDate }}</div>
+{% if concept %}
+<aside class="concept-box">
+  <div class="cb-label"><span class="cb-dollar">$</span> concept.lookup</div>
+  <div class="cb-name">{{ concept.name }}</div>
+  <div class="cb-detail"><span class="cb-arrow">→</span> {{ concept.brief }}</div>
+  <div class="cb-detail"><span class="cb-arrow">→</span> {{ concept.origin }}</div>
+</aside>
+{% endif %}
 <div class="blog-post">
   {{ content | safe }}
 </div>
+<aside class="blog-cta">
+  <div class="cb-label"><span class="cb-dollar">$</span> next.step</div>
+  <div class="cta-headline">Want to wire this into your business?</div>
+  <div class="cb-detail"><span class="cb-arrow">&rarr;</span> We help SMBs build the feedback loops, dashboards, and systems that actually change how things run.</div>
+  <a href="/#contact" class="blog-cta-link">Start a conversation &rarr;</a>
+</aside>

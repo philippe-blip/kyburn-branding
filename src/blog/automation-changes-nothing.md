@@ -7,6 +7,10 @@ headline: Why Most Automation Projects Save Time but Change Nothing Important
 date: 2025-03-25
 excerpt: You automated the invoicing, the follow-ups, the reports. You saved hours. But the business runs the same way it did before. Here's what automation misses.
 tags: blog
+concept:
+  name: Feedback Loops
+  brief: A system where the output circles back as input, letting the process correct itself instead of running blind.
+  origin: Described by Norbert Wiener in Cybernetics (1948), though the mechanism was understood in steam engine governors a century earlier.
 ---
 
 You automated the invoicing. Saved two hours a week. You automated the follow-up emails. Saved another three. You automated the weekly report. Saved one.

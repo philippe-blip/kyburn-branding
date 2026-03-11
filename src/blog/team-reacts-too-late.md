@@ -7,6 +7,10 @@ headline: Why Your Team Reacts Too Late Even When Everyone Is Working Hard
 date: 2025-03-20
 excerpt: Your people are busy. Problems still blow up before anyone responds. Look at the delay between something going wrong and someone actually doing something about it.
 tags: blog
+concept:
+  name: Control Lag
+  brief: The delay between a disturbance occurring and the system responding to it — the longer the lag, the worse the overshoot.
+  origin: A core principle in control theory, formalized through Norbert Wiener's cybernetics work in the 1940s and widely applied in engineering and management science.
 ---
 
 The client churned and nobody saw it coming. The project went over budget and you found out at invoicing. The hire wasn't working out and it took four months to address.
