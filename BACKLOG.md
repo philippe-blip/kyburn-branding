@@ -32,3 +32,9 @@ Items specific to the concept pages (design, layout, copy, visuals). Project-lev
 ## Assets
 - [ ] Rename images: Untitled.png, Untitled (1).png, juvet$.webp → descriptive names
 - [ ] Optimize image sizes (some PNGs are 1-2MB)
+- [ ] Create og-image.jpg (1200×630px) for social sharing previews
+
+## Architecture
+- [ ] Migrate to Eleventy — shared layouts, Markdown blog, auto-generated sitemap
+      Decision: Eleventy over Astro (pure static content, no interactive components needed)
+      See TODO.md for rationale

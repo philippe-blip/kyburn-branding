@@ -1,0 +1,53 @@
+---
+layout: base.njk
+css: profile.css
+backLink: /
+---
+<div class="page">
+  <aside class="sidebar">
+    <div class="avatar-wrap">
+      <div class="avatar-inner">
+        {% if avatar %}
+        <img src="/assets/{{ avatar }}" alt="{{ name }}">
+        {% else %}
+        <span class="avatar-initials">{{ initials }}</span>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="profile-name">{{ name }}</div>
+    <div class="profile-role">{{ role }}</div>
+    <div class="profile-status">
+      <span class="status-dot"></span>
+      {{ status | default("Available for projects") }}
+    </div>
+
+    {% if linkedin %}
+    <a class="linkedin-link" href="{{ linkedin }}" target="_blank" rel="noopener">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      {{ linkedinLabel | default(linkedin | replace("https://", "")) }}
+    </a>
+    {% endif %}
+
+    {% if bio %}
+    <p class="bio">{{ bio }}</p>
+    {% endif %}
+
+    {% if skills %}
+    <div class="sidebar-section">
+      <div class="side-label">Expertise</div>
+      <div class="skills-row">
+        {% for skill in skills %}
+        <span class="skill">{{ skill }}</span>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    {{ sidebarExtra | safe }}
+  </aside>
+
+  <main class="main">
+    {{ content | safe }}
+  </main>
+</div>

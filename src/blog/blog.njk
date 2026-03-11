@@ -1,0 +1,24 @@
+---
+layout: content-page.njk
+title: Blog
+description: Insights on AI automation, workflow design, and building systems that run your business.
+eyebrow: Blog
+headline: Dispatches from the machine room.
+sub: What we learn building AI systems for real businesses.
+backLink: /
+permalink: /blog/
+---
+
+{% if collections.blog.length %}
+<div class="blog-list">
+  {% for post in collections.blog %}
+  <a class="blog-item" href="{{ post.url }}">
+    <div class="blog-item-title">{{ post.data.title }}</div>
+    <div class="blog-item-date">{{ post.date | isoDate }}</div>
+    {% if post.data.excerpt %}<div class="blog-item-excerpt">{{ post.data.excerpt }}</div>{% endif %}
+  </a>
+  {% endfor %}
+</div>
+{% else %}
+<p class="page-sub" style="margin-bottom:0">Nothing published yet. Check back soon.</p>
+{% endif %}

@@ -1,0 +1,11 @@
+---
+layout: base.njk
+css: content.css
+---
+<div class="page">
+  {% if eyebrow %}<div class="page-eyebrow">{{ eyebrow }}</div>{% endif %}
+  {% if headline %}<h1 class="page-headline">{{ headline }}</h1>{% endif %}
+  {% if sub %}<p class="page-sub">{{ sub }}</p>{% endif %}
+
+  {{ content | safe }}
+</div>

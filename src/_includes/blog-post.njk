@@ -1,0 +1,8 @@
+---
+layout: content-page.njk
+backLink: /blog/
+---
+<div class="blog-meta">{{ page.date | isoDate }}</div>
+<div class="blog-post">
+  {{ content | safe }}
+</div>
