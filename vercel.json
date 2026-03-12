@@ -1,6 +1,4 @@
 {
-  "rewrites": [
-    { "source": "/", "destination": "/concept-v0.html" },
-    { "source": "/sitemap.xml", "destination": "/api/sitemap.xml" }
-  ]
+  "buildCommand": "npm run build",
+  "outputDirectory": "_site"
 }

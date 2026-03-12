@@ -124,6 +124,49 @@ html[data-theme="light"] .exp { background: rgba(0,0,0,0.02); }
 .profile-cta h3 { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--text); margin-bottom: 0.5rem; }
 .profile-cta p { font-size: 0.88rem; color: var(--dim); line-height: 1.7; margin-bottom: 1.5rem; }
 
+/* ── EDUCATION ── */
+.edu-item { margin-bottom: 0.9rem; }
+.edu-degree { font-size: 0.82rem; font-weight: 500; color: var(--text); }
+.edu-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--dim); }
+.edu-note { font-size: 0.72rem; font-weight: 300; color: var(--dim); margin-top: 0.1rem; opacity: 0.7; }
+
+/* ── COMPANY LOGOS ── */
+.exp-company { display: flex; align-items: center; gap: 0.5rem; }
+.exp-company img {
+  width: 18px; height: 18px; object-fit: contain;
+  filter: grayscale(1) brightness(1.5); border-radius: 3px;
+}
+html[data-theme="light"] .exp-company img { filter: grayscale(1) brightness(0.4); }
+
+/* ── ENGAGEMENT LIST ── */
+.eng-list { list-style: none; margin-top: 0.75rem; }
+.eng-list li {
+  font-size: 0.82rem; font-weight: 300; color: var(--dim);
+  padding: 0.4rem 0; border-top: 1px solid var(--border);
+  display: flex; align-items: baseline; gap: 0.75rem;
+}
+.eng-co { font-weight: 500; color: var(--text); min-width: 100px; font-size: 0.82rem; }
+.eng-role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem; color: var(--cyan); white-space: nowrap;
+}
+
+/* ── BADGES ── */
+.yt-badge {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+  color: #ff4444; border: 1px solid rgba(255,68,68,0.25);
+  padding: 0.25rem 0.6rem; letter-spacing: 0.05em;
+}
+.yt-badge svg { flex-shrink: 0; }
+.eth-badge {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+  color: #8b5cf6; border: 1px solid rgba(139,92,246,0.25);
+  padding: 0.25rem 0.6rem; letter-spacing: 0.05em;
+}
+.eth-badge svg { flex-shrink: 0; }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .page { grid-template-columns: 1fr; }
