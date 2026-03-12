@@ -853,6 +853,42 @@ html[data-theme="light"] .team-member { background: rgba(247,246,242,0.6); }
 }
 html[data-theme="light"] .tech-item { background: rgba(247,246,242,0.6); }
 
+/* ── BLOG SECTION ── */
+.blog-section {
+  padding: 6rem 6rem 4rem;
+  position: relative; z-index: 2;
+}
+.blog-teaser {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.blog-teaser .blog-item {
+  padding: 1.2rem 1.5rem;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.02);
+  margin-bottom: 0.6rem;
+  transition: all 0.3s;
+  text-decoration: none;
+  display: block; color: inherit;
+}
+.blog-teaser .blog-item:hover {
+  border-color: var(--cyan);
+  background: var(--cyan-dim);
+  transform: translateX(3px);
+}
+.blog-teaser .blog-item-title {
+  font-size: 0.9rem; font-weight: 500;
+  color: var(--text); margin-bottom: 0.2rem;
+}
+.blog-teaser .blog-item-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem; color: var(--dim);
+}
+.blog-teaser .blog-item-excerpt {
+  font-size: 0.8rem; color: var(--dim);
+  line-height: 1.6; margin-top: 0.4rem;
+}
+
 /* ── FOOTER ── */
 .footer {
   position: relative; z-index: 2;
@@ -994,6 +1030,8 @@ html[data-theme="light"] .nav-mobile-overlay { background: rgba(247,246,242,0.97
   .tech-section { padding: 4rem 1.5rem; }
   .tech-grid { grid-template-columns: repeat(3, 1fr); max-width: 400px; margin: 0 auto; }
 
+  .blog-section { padding: 4rem 1.5rem; }
+
   .footer { padding: 2rem 1.5rem; }
   .footer-inner {
     flex-direction: column;
@@ -1025,23 +1063,25 @@ html[data-theme="light"] .nav-mobile-overlay { background: rgba(247,246,242,0.97
       <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
     </svg>
   </button>
-  <a href="#" onclick="closeNav()">Work</a>
-  <a href="#" onclick="closeNav()">Method</a>
+  <a href="#work" onclick="closeNav()">Work</a>
+  <a href="#method" onclick="closeNav()">Method</a>
   <a href="/team/" onclick="closeNav()">Team</a>
   <a href="/tech/" onclick="closeNav()">Stack</a>
-  <a href="#" onclick="closeNav()">About</a>
-  <a href="#" class="nav-cta" onclick="closeNav()" style="margin-top:1rem;">Start a project</a>
+  <a href="/blog/" onclick="closeNav()">Blog</a>
+  <a href="#about" onclick="closeNav()">About</a>
+  <a href="#contact" class="nav-cta" onclick="closeNav()" style="margin-top:1rem;">Start a project</a>
 </div>
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="#">KYBURN</a>
+  <a class="nav-logo" href="/">KYBURN</a>
   <ul class="nav-links">
-    <li><a href="#">Work</a></li>
-    <li><a href="#">Method</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#method">Method</a></li>
     <li><a href="/team/">Team</a></li>
     <li><a href="/tech/">Stack</a></li>
-    <li><a href="#">About</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="#about">About</a></li>
   </ul>
   <div style="display:flex;align-items:center;gap:1rem;">
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark theme">
@@ -1063,7 +1103,7 @@ html[data-theme="light"] .nav-mobile-overlay { background: rgba(247,246,242,0.97
         <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
       </svg>
     </button>
-    <a class="nav-cta" href="#">Start a project</a>
+    <a class="nav-cta" href="#contact">Start a project</a>
   </div>
 </nav>
 
@@ -1196,7 +1236,7 @@ html[data-theme="light"] .nav-mobile-overlay { background: rgba(247,246,242,0.97
 
 
 <!-- MANIFESTO -->
-<section class="manifesto">
+<section class="manifesto" id="about">
   <div class="manifesto-ghost">CYBERNETICS</div>
   <div class="manifesto-inner">
     <div class="manifesto-tag">— Philosophy —</div>
@@ -1206,7 +1246,7 @@ html[data-theme="light"] .nav-mobile-overlay { background: rgba(247,246,242,0.97
 </section>
 
 <!-- CASE STUDY 01 -->
-<section class="case">
+<section class="case" id="work">
   <div class="case-meta">
     <span class="case-tag">Case Study — Facility Services Group</span>
     <span class="case-year">2023–2025</span>
@@ -1240,7 +1280,7 @@ html[data-theme="light"] .nav-mobile-overlay { background: rgba(247,246,242,0.97
 </section>
 
 <!-- PROCESS — THE LOOP -->
-<section class="process">
+<section class="process" id="method">
   <div class="section-eyebrow">Method</div>
   <h2 class="section-heading">The feedback loop<br>that runs your ops.</h2>
   <div class="process-steps">
@@ -1427,8 +1467,28 @@ html[data-theme="light"] .nav-mobile-overlay { background: rgba(247,246,242,0.97
   </div>
 </section>
 
+<!-- BLOG -->
+<section class="blog-section" id="blog">
+  <div class="section-heading" style="text-align:center;">
+    <div class="eyebrow" style="justify-content:center;">Latest</div>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--text);margin-top:1rem;">From the machine room.</h2>
+  </div>
+  <div class="blog-teaser">
+    {%- for post in collections.blog %}{% if loop.index <= 3 %}
+    <a class="blog-item" href="{{ post.url }}">
+      <div class="blog-item-title">{{ post.data.title }}</div>
+      <div class="blog-item-date">{{ post.date | isoDate }}</div>
+      {% if post.data.excerpt %}<div class="blog-item-excerpt">{{ post.data.excerpt }}</div>{% endif %}
+    </a>
+    {% endif %}{% endfor %}
+  </div>
+  <div style="text-align:center;margin-top:2rem;">
+    <a href="/blog/" style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--dim);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--dim)'">View all dispatches &rarr;</a>
+  </div>
+</section>
+
 <!-- CTA -->
-<section class="cta-section">
+<section class="cta-section" id="contact">
   <div class="cta-bg">
     <img src="/assets/Untitled (2).png" alt="Person overlooking mountain landscape">
   </div>
@@ -1437,7 +1497,7 @@ html[data-theme="light"] .nav-mobile-overlay { background: rgba(247,246,242,0.97
     <div class="eyebrow" style="justify-content:center;">Ready to move faster?</div>
     <h2 class="cta-headline">Your business,<br><em>on autopilot.</em></h2>
     <p class="cta-sub">We take 3 new clients per quarter.<br>Tell us what's slowing you down.</p>
-    <a href="#" class="btn-primary" style="text-decoration:none;">Start a project →</a>
+    <a href="#contact" class="btn-primary" style="text-decoration:none;">Start a project →</a>
   </div>
 </section>
 
@@ -1447,10 +1507,11 @@ html[data-theme="light"] .nav-mobile-overlay { background: rgba(247,246,242,0.97
     <div class="footer-logo">KYBURN</div>
     <div class="footer-tagline">Steer faster.</div>
     <div class="footer-links">
-      <a href="#">Work</a>
-      <a href="#">Method</a>
-      <a href="#">About</a>
-      <a href="#">Contact</a>
+      <a href="#work">Work</a>
+      <a href="#method">Method</a>
+      <a href="/blog/">Blog</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
     </div>
     <div class="footer-copy">© 2025 Kyburn. AI Workflow Studio.</div>
   </div>
